@@ -20,33 +20,32 @@ const CharacterDetailsFrame = styled.div`
   box-shadow: var(--boxshadow-grey);
 `;
 
-export default function Home() {
+export default function Character() {
   const { query } = useRouter();
   const { characterId } = query;
-  const [characterInfo, setCharacterInfo] = useState({
-    loaded: false,
-  });
+  const [characterInfo, setCharacterInfo] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (characterId) {
       fetch(`https://rickandmortyapi.com/api/character/${characterId}`)
         .then((response) => response.json())
         .then((data) => {
-          setCharacterInfo({
-            ...data,
-            loaded: true,
-          });
+          setCharacterInfo(data);
+          setLoaded(true);
         });
     }
   }, [characterId]);
 
-  if (characterInfo.loaded) {
+  if (loaded) {
     return (
       <CharacterDetails>
         <CharacterDetailsFrame>
-          <img
+          <Image
             src={characterInfo.image}
             alt={`Picture of ${characterInfo.name}`}
+            width='200'
+            height='200'
           />
           <CharacterDetailsText>
             <h2>{characterInfo.name}</h2>
