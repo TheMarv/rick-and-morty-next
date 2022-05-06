@@ -14,10 +14,10 @@ const CharacterDetailsText = styled.div`
 const CharacterDetailsFrame = styled.div`
   max-width: 80rem;
   background-color: black;
-  color: var(--ricky-and-morty-text-color);
+  color: ${({ theme }) => theme.colors.fontColor};
   margin: 1rem auto;
   border-radius: 5px;
-  box-shadow: var(--boxshadow-grey);
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 export default function Character() {
@@ -49,7 +49,10 @@ export default function Character() {
           />
           <CharacterDetailsText>
             <h2>{characterInfo.name}</h2>
-            <h3>First appeared in episode 0</h3>
+            <h3>
+              First appeared in episode{' '}
+              {characterInfo.episode[0].split('/').pop()}
+            </h3>
             <h3>Gender: {characterInfo.gender}</h3>
             <h3>Species: {characterInfo.species}</h3>
             <h4>Origin: {characterInfo.origin.name}</h4>
